@@ -1,7 +1,18 @@
 diamonds$vs <- rep((mtcars$vs == 1)[3:22], 2697) #Creates VS logic column in the diamonds dataset.
 
-#Explore Function (df, # of bins represented by binwidth (NOT BIN SIZE), correlation threshold)
-explore <- function(df,binsize,cor_thres) {
+#Explore Function (df, # of bins represented by binwidth, correlation threshold)
+explore <- function(df,binsize,cor_thres) { #Function that takes the following variables:
+  #df = dataframe
+  #binsize = list of bin sizes to be used
+  #cor_thres = threshold of correlation values to keep 
+  
+  #Outputs the following: 
+  #count and density plots of numerical variables, 
+  #count plots of non-numerical variables, 
+  #summary statistics of numerical variables, 
+  #dataframe of r-squared values for paired numerical variables, and 
+  #dataframe of correlation values above the threshold (user-defined) for paired numerical variables
+  
   require(ggplot2) #Requiring packagings that includes methods and attributes to be accessed below.
   require(stats)
   require(grid)
@@ -10,7 +21,7 @@ explore <- function(df,binsize,cor_thres) {
   title = NULL #Initialize empty variable for list of LM titles. 
   r2 = NULL   #Initialize empty variable for list of R^2 values.
   correlation = NULL #Initialize empty variable for list of Pearson Correlation values.
-  df_cor_thres = NULL #Initialize empty variable for dataframe of correlation values above the set threshold.
+  df_cor_thres = NULL #Initialize empty variable for dataframe of correlation values (user-defined) the set threshold.
   
   #df = dataframe dataset  
   #binsize = binwidth variable
@@ -61,8 +72,8 @@ explore <- function(df,binsize,cor_thres) {
         }
       }
     }
-    print(df_r2 <- data.frame("Paired_Variable" = title, "R.squared" = r2)) #Part 4bii: dataframes the R^2 data.
-    df_cor <- data.frame("Paired_Variable" = title, "Pearson_Correlation" = correlation) #Dataframes Pearson Correlation data. 
+    print(df_r2 <- data.frame("Paired_Variable" = title, "R.squared" = r2)) #Part 4bii: prints dataframe of the R^2 values for each paired attribute.
+    df_cor <- data.frame("Paired_Variable" = title, "Pearson_Correlation" = correlation) #Dataframes Pearson Correlation values for each paired attribute.
     
     #Part 4biii: Create dataframe of correlation values above correlation threshold.
     for (i in 1:length(df_cor[,1])) { #For each calculated Pearson correlation...
