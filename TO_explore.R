@@ -33,10 +33,10 @@ explore <- function(df,binsize,cor_thres) { #Function that takes the following v
   nonnumname <- colnames(nonnumerics) #Assigns to numname the list of variable names from the numerics dataframe
   
   if (length(numerics) > 0) { #If there are any columns of data in numerics dataframe... 
-    for (i in 1:length(numerics)) { #For each numeric parameter/attribute...
+    for (i in 1:length(numerics)) { #For each numeric attribute...
       for (j in 1:length(binsize)) { #For each each binsize listed...
         
-        #Part 1: Generate Plots of Numeric Parameters Count and Density Histograms
+        #Part 1: Generate Plots of Numeric Attributes Count and Density Histograms
         a<- ggplot(numerics , aes_string(numname[i])) + #Assign to ggplot numerics dataframe referencing the string value of the currently indexed column name
           geom_histogram(binwidth=binsize[j],  #Make histogram using indexed data column, setting binsize to currently indexed binsize in list
                          fill="blue") +  #Histogram columns are filled with blue. 
@@ -55,15 +55,15 @@ explore <- function(df,binsize,cor_thres) { #Function that takes the following v
       }
     }
     
-    #Tabulate R^2 values for every pair of numeric variables
-    #Prints table of summary statistics of each numerical variable 
-    for (i in 1:length(numerics)) { #For each numeric parameter/attribute... 
+    #Tabulate R^2 values for every pair of numerical variables
+    #Prints table of summary statistics of each numerical variables 
+    for (i in 1:length(numerics)) { #For each numeric Attribute/attribute... 
       print(summary(numerics[i]))   #Part 4bi: Print a summary statistics table based on data under each attribute
       for (j in 2:length(numerics)) { #A 2nd for looop to create paired variables that..
         if (i != j) {                 #Creates the combinations of all paired attributes without repeats (by never letting i = j) 
           
           #Part 3: Calculate R-squared for each paired attribute. 
-          title <- rbind(title, paste(numname[i],"-",numname[j])) #Update title list with next name of paired parameters. 
+          title <- rbind(title, paste(numname[i],"-",numname[j])) #Update title list with next name of paired Attributes. 
           z<- lm(numerics[[i]]~numerics[[j]]) #Assign LM output to variable z
           r2 <- rbind(r2, summary(z)$r.squared) #Update r2 list with r-squared extracted from the summary of variable z. 
           
@@ -83,9 +83,9 @@ explore <- function(df,binsize,cor_thres) { #Function that takes the following v
     print(df_cor_thres) #Print the resultant dataframe.
   }
   
-  #Part 2: Generate Plots of Non-Numeric Parameters Count Histogram
+  #Part 2: Generate Plots of Non-Numeric Attributes Count Histogram
   if (length(nonnumerics)>0) { #If there are any columns of data in nonnumerics dataframe... 
-    for (i in 1:length(nonnumerics)) { #For each nonnumeric parameter..
+    for (i in 1:length(nonnumerics)) { #For each nonnumeric Attribute..
       c <- ggplot(nonnumerics, aes_string(nonnumname[i])) + #Assign to ggplot nonnumerics dataframe referencing the string value of the currently indexed column name
         geom_bar(color="gray") + #Create bar graph of the referenced data with gray bars 
         labs(title=paste(nonnumname[i]," data count")) #Title graph as indexed column name + data count.
