@@ -4,7 +4,9 @@
 #   from any data frame so the method you develop can be used on any data.
 NumericColumns <-function(data) {       #Create function that take data variable (dataframe type)
     extracted <- data[{sapply(data,class) == "numeric"}] #Assigns to extracted the data with class "numeric" from 
-    str(extracted)   #Show structure of extracted dataframe to confirm proper extraction. 
+    ##str(extracted)   #Show structure of extracted dataframe to confirm proper extraction. 
+    ##Prof G: Need to return something here! I added the line below to return extracted
+    return(extracted)
 }
 
 
@@ -26,6 +28,8 @@ Pearson_calc <-function(data) { #Create a function that takes data variable (dat
   }
   df <- data.frame("Paired_Parameters" = title, "Pearson_Correlations" = correlation) #Create dataframe using the two columns, title names and correlation values
   df #print dataframe
+  
+  ##Prof G: Same problem here, need to return something.
 } #Call Pearson_calc function to see resultant dataframe of correlation coeff for numeric values in a dataframe.
 
 #Part 2.3 Scatter Plot for Every Pair of Numeric Variables
@@ -35,3 +39,4 @@ scatter <- ggplot(Pearson_calc(diamonds), aes(Paired_Parameters, Pearson_Correla
   geom_point() + #Point representations of the data (i.e., scatterplot)
   labs(list(title = "Pearson Correlation Coefficients")) #Create plot title.
   
+##Prof G: Nothing got plotted.
