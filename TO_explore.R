@@ -38,7 +38,9 @@ explore <- function(df,binsize,cor_thres) { #Function that takes the following v
         
         #Part 1: Generate Plots of Numeric Attributes Count and Density Histograms
         a<- ggplot(numerics , aes_string(numname[i])) + #Assign to ggplot numerics dataframe referencing the string value of the currently indexed column name
-          geom_histogram(binwidth=binsize[j],  #Make histogram using indexed data column, setting binsize to currently indexed binsize in list
+          ##Prof G: Need to calculate binwidth to get the deisred number of bins
+          ##Prof G: See the code I provided.
+           geom_histogram(binwidth=binsize[j],  #Make histogram using indexed data column, setting binsize to currently indexed binsize in list
                          fill="blue") +  #Histogram columns are filled with blue. 
           geom_vline(xintercept = mean(numerics[[i]]),color="red") + #Draw red vertical line at the mean of the indexed column of data
           labs(title=paste(numname[i]," data count,"," binsize=",binsize[j])) #Title graph as indexed column name + data count, along with binsize value.
@@ -95,6 +97,10 @@ explore <- function(df,binsize,cor_thres) { #Function that takes the following v
 } #Function closing bracket
 
 #Part 5: run code (currently commented out) below
-#explore(diamonds,c(5,20,50), 0.25)
+##Prof G: should call explore instead of myexplore
+##Prof G: Does not return anything
+outlist <- explore(diamonds,c(5,20,50), 0.25)
 #explore(mtcars,c(5,20,50), 0.25)
+
+for (i in 1:length(outlist)) {print(outlist[i])}
   
